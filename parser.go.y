@@ -57,7 +57,7 @@ expr
 %%
 
 type Lexer struct {
-    scaner.Scanner
+    scanner.Scanner
     result Expression
 }
 
@@ -70,7 +70,7 @@ func (l *Lexer) Lex(lval *yySymType) int {
     return token
 }
 
-func (l *Lexer) Error(e string} {
+func (l *Lexer) Error(e string) {
     panic(e)
 }
 
