@@ -1,32 +1,32 @@
 %{
-    package main
+package main
 
-    import(
-        "fmt"
-        "text/scanner"
-        "os"
-        "strings"
-    )
+import (
+    "fmt"
+    "text/scanner"
+    "os"
+    "strings"
+)
 
-    type Expression interface{}
-    type Token struct {
-        token int
-        literal string
-    }
+type Expression interface{}
+type Token struct {
+    token   int
+    literal string
+}
 
-    type NumExpr struct {
-        literal string
-    }
-    type BinOpExpr struct {
-        left Expression
-        operator rune
-        right Expression
-    }
+type NumExpr struct {
+    literal string
+}
+type BinOpExpr struct {
+    left     Expression
+    operator rune
+    right    Expression
+}
 %}
 
 %union{
     token Token
-    expr Expression
+    expr  Expression
 }
 
 %type<expr> program
@@ -41,7 +41,7 @@ program
     : expr
     {
         $$ = $1
-        yylex.(:Lexer).result = $$
+        yylex.(*Lexer).result = $$
     }
 
 expr
@@ -66,7 +66,7 @@ func (l *Lexer) Lex(lval *yySymType) int {
     if token == scanner.Int {
         token = NUMBER
     }
-    lval.token = TOken{token: token, literal: l.TOkenText()}
+    lval.token = Token{token: token, literal: l.TokenText()}
     return token
 }
 
